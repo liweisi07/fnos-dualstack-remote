@@ -56,7 +56,9 @@ flowchart LR
 
 1. Cloudflare 后台左侧点 Workers 和 Pages → 创建 → 创建 Worker，起名 `nas-router`，点部署。
 2. 点编辑代码，清空默认内容后粘贴 `worker.js` 的内容，再点部署。
-3. 进 `nas-router` 的设置 → 变量和机密，加一个文本变量：名字 `STUN_PORT`，值填当前 STUN 公网端口（比如 `26666`），保存并部署。
+3. 进 `nas-router` 的设置 → 变量和机密，加两个文本变量，保存并部署：
+   - `STUN_PORT`：值填当前 STUN 公网端口（比如 `26666`），Lucky 的 Webhook 会自动更新它。
+   - `BASE_DOMAIN`：值填自己的域名（比如 `example.com`，只填域名，不带 `https://`）。不填也行，Worker 会自动从访问的域名去掉第一段得到，访问 `fnos.example.com` 就得到 `example.com`。
 4. 回域名控制台，进 Workers 路由 → 添加路由：`*.example.com/*`，Worker 选 `nas-router`，保存。
 5. 准备 API 权限：主页右侧复制账号 ID；在“我的个人资料 → API 令牌”里确保令牌有“账户 - Worker 脚本 - 编辑”和“区域 - DNS - 编辑”两项权限。
 
